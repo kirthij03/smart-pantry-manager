@@ -1,3 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SmartPantryManager</string>
+    <string name="app_name">Smart Pantry Manager</string>
+    <string name="pantry_title">My Pantry</string>
+    <string name="add_ingredient">Add Ingredient</string>
+    <string name="edit_ingredient">Edit ingredient</string>
+    <string name="delete_ingredient">Delete ingredient</string>
+    <string name="empty_pantry_message">Your pantry is empty — tap + to add your first ingredient</string>
+    <string name="ingredient_name_hint">Ingredient name</string>
+    <string name="quantity_hint">Quantity</string>
+    <string name="unit_hint">Unit (g, ml, units)</string>
+    <string name="expiry_hint">Expiration date (optional)</string>
+    <string name="quantity_unit_format">%1$s %2$s</string>
+    <string name="expires_format">Expires: %1$s</string>
+    <string name="no_expiry">No expiry date</string>
 </resources>
