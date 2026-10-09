@@ -2,15 +2,50 @@
 <resources>
     <string name="app_name">Smart Pantry Manager</string>
     <string name="pantry_title">My Pantry</string>
+
     <string name="add_ingredient">Add Ingredient</string>
-    <string name="edit_ingredient">Edit ingredient</string>
-    <string name="delete_ingredient">Delete ingredient</string>
+    <string name="edit_ingredient">Edit Ingredient</string>
+    <string name="delete_ingredient">Delete Ingredient</string>
     <string name="empty_pantry_message">Your pantry is empty — tap + to add your first ingredient</string>
+
     <string name="ingredient_name_hint">Ingredient name</string>
     <string name="quantity_hint">Quantity</string>
-    <string name="unit_hint">Unit (g, ml, units)</string>
+    <string name="unit_label">Unit</string>
     <string name="expiry_hint">Expiration date (optional)</string>
+    <string name="save">Save</string>
+    <string name="clear_date">Clear date</string>
+
     <string name="quantity_unit_format">%1$s %2$s</string>
     <string name="expires_format">Expires: %1$s</string>
     <string name="no_expiry">No expiry date</string>
+
+    <string name="error_name_required">Please enter an ingredient name</string>
+    <string name="error_name_too_long">Name must be 50 characters or fewer</string>
+    <string name="error_quantity_required">Please enter a quantity</string>
+    <string name="error_quantity_invalid">Enter a valid number, for example 2 or 0.5</string>
+    <string name="error_quantity_positive">Quantity must be greater than zero</string>
+    <string name="error_quantity_too_large">Quantity must be 100000 or less</string>
+
+    <string name="msg_ingredient_added">Ingredient added</string>
+    <string name="msg_ingredient_updated">Ingredient updated</string>
+    <string name="msg_ingredient_deleted">Ingredient deleted</string>
+    <string name="msg_save_failed">Could not save. Please try again.</string>
+    <string name="msg_delete_failed">Could not delete. Please try again.</string>
+    <string name="msg_item_not_found">That ingredient no longer exists</string>
+
+    <string name="delete_confirm_title">Delete ingredient?</string>
+    <string name="delete_confirm_message">Remove %1$s from your pantry?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="unit_options">
+        <item>g</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>l</item>
+        <item>units</item>
+        <item>tsp</item>
+        <item>tbsp</item>
+        <item>cup</item>
+    </string-array>
 </resources>
