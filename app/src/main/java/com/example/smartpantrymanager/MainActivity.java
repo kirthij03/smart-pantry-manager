@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -37,9 +38,10 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // Bottom padding is left to the bottom navigation bar, which handles it itself
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
         rvPantry = findViewById(R.id.rv_pantry_list);
         tvEmpty = findViewById(R.id.tv_empty_pantry);
         FloatingActionButton fabAdd = findViewById(R.id.fab_add_ingredient);
+        BottomNavigationView nav = findViewById(R.id.bottom_nav);
 
         // The adapter starts empty; onResume() fills it from the database
         adapter = new PantryAdapter(new ArrayList<>(), this);
@@ -57,11 +60,13 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
         // Explicit Intent: open the Add/Edit screen in add mode (no extras)
         fabAdd.setOnClickListener(v ->
                 startActivity(new Intent(this, AddEditIngredientActivity.class)));
+
+        BottomNavHelper.setup(this, nav, R.id.nav_pantry);
     }
 
     /**
      * Runs every time this screen becomes visible, including when the user comes
-     * back from the Add/Edit screen. Reloading here keeps the list up to date.
+     * back from another screen. Reloading here keeps the list up to date.
      */
     @Override
     protected void onResume() {

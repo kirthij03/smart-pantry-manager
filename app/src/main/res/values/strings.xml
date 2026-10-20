@@ -38,6 +38,23 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
 
+    <string name="nav_pantry">Pantry</string>
+    <string name="nav_recipes">Recipes</string>
+
+    <string name="suggested_title">Suggested Recipes</string>
+    <string name="suggested_subtitle">Recipes you can cook right now using only what is in your pantry</string>
+    <string name="no_recipes_message">No recipes match your pantry yet - add more ingredients</string>
+
+    <string name="recipe_ingredients_heading">Ingredients</string>
+    <string name="recipe_method_heading">Method</string>
+    <string name="ingredient_line">• %1$s: %2$s %3$s</string>
+    <string name="msg_recipe_not_found">That recipe could not be found</string>
+
+    <plurals name="recipe_summary">
+        <item quantity="one">%d ingredient, all in your pantry</item>
+        <item quantity="other">%d ingredients, all in your pantry</item>
+    </plurals>
+
     <string-array name="unit_options">
         <item>g</item>
         <item>kg</item>
