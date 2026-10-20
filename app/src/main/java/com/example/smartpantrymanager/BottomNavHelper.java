@@ -26,6 +26,8 @@ public class BottomNavHelper {
                 target = MainActivity.class;
             } else if (id == R.id.nav_recipes) {
                 target = SuggestedRecipesActivity.class;
+            } else if (id == R.id.nav_settings) {
+                target = SettingsActivity.class;
             } else {
                 return false;
             }
@@ -35,6 +37,12 @@ public class BottomNavHelper {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             activity.startActivity(intent);
             activity.overridePendingTransition(0, 0); // no slide animation between tabs
+
+            // Pantry is the home screen. Every other tab closes itself when you leave it,
+            // so Back always returns to Pantry.
+            if (!(activity instanceof MainActivity)) {
+                activity.finish();
+            }
 
             // false keeps this screen's own tab highlighted; the new screen highlights its own
             return false;

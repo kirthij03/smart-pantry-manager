@@ -19,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
 
     /**
      * Runs every time this screen becomes visible, including when the user comes
-     * back from another screen. Reloading here keeps the list up to date.
+     * back from another screen. Reloading here keeps the list and the settings up to date.
      */
     @Override
     protected void onResume() {
@@ -83,11 +84,44 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
     /** Reads the pantry from the database and shows either the list or the empty message. */
     private void loadPantry() {
         List<Pantry> items = dbHelper.getAllPantryItems();
+        sortItems(items, AppPreferences.getSortOrder(this));
+
+        adapter.setHighlightExpiring(AppPreferences.isHighlightExpiring(this));
         adapter.setItems(items);
 
         boolean isEmpty = items.isEmpty();
         tvEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
         rvPantry.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+    }
+
+    /**
+     * The database already returns items A to Z. For "expiry date" order the list is
+     * re-sorted here, with items that have no expiry date placed last.
+     */
+    private void sortItems(List<Pantry> items, int sortOrder) {
+        if (sortOrder != AppPreferences.SORT_EXPIRY) {
+            return;
+        }
+        Collections.sort(items, (a, b) -> {
+            String dateA = a.getExpirationDate();
+            String dateB = b.getExpirationDate();
+            boolean missingA = dateA == null || dateA.trim().isEmpty();
+            boolean missingB = dateB == null || dateB.trim().isEmpty();
+
+            if (missingA && missingB) {
+                return a.getIngredientName().compareToIgnoreCase(b.getIngredientName());
+            }
+            if (missingA) {
+                return 1;
+            }
+            if (missingB) {
+                return -1;
+            }
+            // yyyy-MM-dd dates sort correctly as plain text
+            int byDate = dateA.compareTo(dateB);
+            return byDate != 0 ? byDate
+                    : a.getIngredientName().compareToIgnoreCase(b.getIngredientName());
+        });
     }
 
     /** Called by the adapter when the edit button on a card is tapped. */

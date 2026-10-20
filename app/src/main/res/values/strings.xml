@@ -17,6 +17,7 @@
 
     <string name="quantity_unit_format">%1$s %2$s</string>
     <string name="expires_format">Expires: %1$s</string>
+    <string name="expired_format">Expired: %1$s</string>
     <string name="no_expiry">No expiry date</string>
 
     <string name="error_name_required">Please enter an ingredient name</string>
@@ -40,6 +41,7 @@
 
     <string name="nav_pantry">Pantry</string>
     <string name="nav_recipes">Recipes</string>
+    <string name="nav_settings">Settings</string>
 
     <string name="suggested_title">Suggested Recipes</string>
     <string name="suggested_subtitle">Recipes you can cook right now using only what is in your pantry</string>
@@ -49,6 +51,13 @@
     <string name="recipe_method_heading">Method</string>
     <string name="ingredient_line">• %1$s: %2$s %3$s</string>
     <string name="msg_recipe_not_found">That recipe could not be found</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_expiry_title">Highlight expiring items</string>
+    <string name="settings_expiry_desc">Items turn orange when they expire within 3 days, and red once they have expired</string>
+    <string name="settings_sort_title">Sort pantry by</string>
+    <string name="settings_sort_name">Name (A to Z)</string>
+    <string name="settings_sort_expiry">Expiry date (soonest first)</string>
 
     <plurals name="recipe_summary">
         <item quantity="one">%d ingredient, all in your pantry</item>
