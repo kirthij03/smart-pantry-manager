@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Suggested Recipes screen. Runs the strict-matching rule against the current
- * pantry and lists only the recipes the user can make right now.
+ * pantry. Recipes that pass are listed first; recipes missing exactly one
+ * ingredient are listed separately as "Almost there".
  */
 public class SuggestedRecipesActivity extends AppCompatActivity
         implements RecipeAdapter.OnRecipeClickListener {
@@ -49,7 +49,7 @@ public class SuggestedRecipesActivity extends AppCompatActivity
         tvEmpty = findViewById(R.id.tv_empty_recipes);
         BottomNavigationView nav = findViewById(R.id.bottom_nav);
 
-        adapter = new RecipeAdapter(new ArrayList<>(), this);
+        adapter = new RecipeAdapter(this);
         rvRecipes.setLayoutManager(new LinearLayoutManager(this));
         rvRecipes.setAdapter(adapter);
 
@@ -73,15 +73,16 @@ public class SuggestedRecipesActivity extends AppCompatActivity
         List<Pantry> pantry = dbHelper.getAllPantryItems();
         List<Recipe> recipes = dbHelper.getAllRecipes();
 
-        // The strict-matching rule lives in RecipeMatcher
+        // The strict-matching rule lives in RecipeMatcher, which returns two separate lists
         RecipeMatcher.MatchResult result = RecipeMatcher.match(pantry, recipes);
         List<Recipe> suggested = result.getSuggested();
-        adapter.setRecipes(suggested);
+        List<RecipeMatcher.AlmostRecipe> almostThere = result.getAlmostThere();
+        adapter.setData(this, suggested, almostThere);
 
-        // Show a helpful message instead of a blank screen when nothing matches
-        boolean isEmpty = suggested.isEmpty();
-        tvEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-        rvRecipes.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        // Show a helpful message instead of a blank screen when there is nothing to list
+        boolean nothingToShow = suggested.isEmpty() && almostThere.isEmpty();
+        tvEmpty.setVisibility(nothingToShow ? View.VISIBLE : View.GONE);
+        rvRecipes.setVisibility(nothingToShow ? View.GONE : View.VISIBLE);
     }
 
     /** Opens the detail screen for the tapped recipe, passing its id as an Intent extra. */

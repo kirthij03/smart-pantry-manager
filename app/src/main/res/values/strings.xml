@@ -46,6 +46,9 @@
     <string name="suggested_title">Suggested Recipes</string>
     <string name="suggested_subtitle">Recipes you can cook right now using only what is in your pantry</string>
     <string name="no_recipes_message">No recipes match your pantry yet - add more ingredients</string>
+    <string name="section_ready">Ready to cook</string>
+    <string name="section_almost">Almost there (one ingredient short)</string>
+    <string name="recipe_needed_format">Still needed: %1$s</string>
 
     <string name="recipe_ingredients_heading">Ingredients</string>
     <string name="recipe_method_heading">Method</string>
