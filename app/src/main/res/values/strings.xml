@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Smart Pantry Manager</string>
     <string name="pantry_title">My Pantry</string>
+    <string name="pantry_subtitle">Cook with what you already have</string>
 
     <string name="add_ingredient">Add Ingredient</string>
     <string name="edit_ingredient">Edit Ingredient</string>
@@ -65,6 +66,16 @@
     <plurals name="recipe_summary">
         <item quantity="one">%d ingredient, all in your pantry</item>
         <item quantity="other">%d ingredients, all in your pantry</item>
+    </plurals>
+
+    <plurals name="stat_ingredients_label">
+        <item quantity="one">ingredient</item>
+        <item quantity="other">ingredients</item>
+    </plurals>
+
+    <plurals name="stat_recipes_label">
+        <item quantity="one">recipe ready</item>
+        <item quantity="other">recipes ready</item>
     </plurals>
 
     <string-array name="unit_options">

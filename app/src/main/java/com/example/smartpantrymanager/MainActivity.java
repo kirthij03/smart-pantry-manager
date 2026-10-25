@@ -24,7 +24,8 @@ import java.util.List;
 
 /**
  * Pantry List screen: shows every ingredient in a RecyclerView and lets the
- * user add, edit and delete them.
+ * user add, edit and delete them. A summary card at the top shows how many
+ * ingredients the user has and how many recipes they can cook right now.
  */
 public class MainActivity extends AppCompatActivity implements PantryAdapter.OnPantryActionListener {
 
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
     private PantryAdapter adapter;
     private RecyclerView rvPantry;
     private TextView tvEmpty;
+    private TextView tvStatIngredients;
+    private TextView tvStatIngredientsLabel;
+    private TextView tvStatRecipes;
+    private TextView tvStatRecipesLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
 
         rvPantry = findViewById(R.id.rv_pantry_list);
         tvEmpty = findViewById(R.id.tv_empty_pantry);
+        tvStatIngredients = findViewById(R.id.tv_stat_ingredients);
+        tvStatIngredientsLabel = findViewById(R.id.tv_stat_ingredients_label);
+        tvStatRecipes = findViewById(R.id.tv_stat_recipes);
+        tvStatRecipesLabel = findViewById(R.id.tv_stat_recipes_label);
         FloatingActionButton fabAdd = findViewById(R.id.fab_add_ingredient);
         BottomNavigationView nav = findViewById(R.id.bottom_nav);
 
@@ -89,9 +98,26 @@ public class MainActivity extends AppCompatActivity implements PantryAdapter.OnP
         adapter.setHighlightExpiring(AppPreferences.isHighlightExpiring(this));
         adapter.setItems(items);
 
+        updateSummary(items);
+
         boolean isEmpty = items.isEmpty();
         tvEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
         rvPantry.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+    }
+
+    /** Fills the summary card: how many ingredients, and how many recipes can be cooked now. */
+    private void updateSummary(List<Pantry> items) {
+        int ingredientCount = items.size();
+        // The same strict-matching rule as the Recipes tab
+        int readyCount = RecipeMatcher.match(items, dbHelper.getAllRecipes())
+                .getSuggested().size();
+
+        tvStatIngredients.setText(String.valueOf(ingredientCount));
+        tvStatIngredientsLabel.setText(getResources().getQuantityString(
+                R.plurals.stat_ingredients_label, ingredientCount));
+        tvStatRecipes.setText(String.valueOf(readyCount));
+        tvStatRecipesLabel.setText(getResources().getQuantityString(
+                R.plurals.stat_recipes_label, readyCount));
     }
 
     /**
